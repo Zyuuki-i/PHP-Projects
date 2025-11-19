@@ -1,7 +1,8 @@
 <?php
     $config = require __DIR__ . '/../scripts/test_mysql.php';
     if(isset($isConnected) && $isConnected) {
-        echo "Kết nối MySQL thành công từ index.php\n";
+        require __DIR__ . '/../templates/home.php';
+        
     } else {
         echo "Kết nối MySQL thất bại từ index.php\n";
     }
