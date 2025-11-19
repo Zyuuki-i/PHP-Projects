@@ -2,7 +2,7 @@ name: Deploy to InfinityFree
 
 on:
   push:
-    branches: ["main"]
+    branches: ["master"]
 
 jobs:
   ftp-deploy:
@@ -17,4 +17,4 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           server-dir: /htdocs/
-          local-dir: ./
+          local-dir: .
