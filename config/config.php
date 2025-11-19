@@ -1,23 +1,13 @@
 <?php
-$appEnv = $_ENV['APP_ENV'] ?? $_SERVER['APP_ENV'] ?? getenv('APP_ENV');
-$isLocal = $appEnv === 'local';
-$hostLocal = $_ENV['MYSQL_HOST'] ?? $_SERVER['MYSQL_HOST'] ?? getenv('MYSQL_HOST');
-$hostProd = $_ENV['MYSQL_HOST_PROD'] ?? $_SERVER['MYSQL_HOST_PROD'] ?? getenv('MYSQL_HOST_PROD');
 return [
     'mysql' => [
-        'host' => $isLocal ? $hostLocal : $hostProd,
-        'dbname' => $isLocal 
-            ? ($_ENV['MYSQL_DB'] ?? '') 
-            : ($_ENV['MYSQL_DB_PROD'] ?? ''),
-        'user' => $isLocal 
-            ? ($_ENV['MYSQL_USER'] ?? '')
-            : ($_ENV['MYSQL_USER_PROD'] ?? ''), 
-        'pass' => $isLocal 
-            ? ($_ENV['MYSQL_PASS'] ?? '') 
-            : ($_ENV['MYSQL_PASS_PROD'] ?? ''),
+        'host' => $_ENV['MYSQL_HOST'] ?? '',
+        'dbname' => $_ENV['MYSQL_DB'] ?? '',
+        'user' => $_ENV['MYSQL_USER'] ?? '', 
+        'pass' => $_ENV['MYSQL_PASS'] ?? '',
         'charset' => 'utf8mb4',
     ],
     'app' => [
-        'base_url' => $isLocal ? ($_ENV['BASE_URL_LOCAL'] ?? '') : ($_ENV['BASE_URL_PROD'] ?? ''),
+        'base_url' => $_ENV['BASE_URL'] ?? '',
     ],
 ];

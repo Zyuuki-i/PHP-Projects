@@ -6,7 +6,9 @@
         $sql = 'SELECT * FROM `nguoidung`';
         $stmt = $pdo->query($sql);
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        var_dump($result);
+        foreach($result as $row) {
+            echo "Mã: " . $row['ma_nd'] . " - Tên: " . $row['tennd'] . " - Email: " . $row['email'] . "<br/>";
+        }
     } else {
         echo "<br/>Kết nối MySQL thất bại từ index.php\n";
     }
