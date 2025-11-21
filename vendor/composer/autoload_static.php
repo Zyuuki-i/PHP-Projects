@@ -23,10 +23,6 @@ class ComposerStaticInitd51e3e9d0bd4659dc9d374201f7f9e38
         array (
             'PhpOption\\' => 10,
         ),
-        'L' =>
-        array (
-            'Levandat\\PhpProjects\\' => 21,
-        ),
         'G' =>
         array (
             'GrahamCampbell\\ResultType\\' => 26,
@@ -34,6 +30,10 @@ class ComposerStaticInitd51e3e9d0bd4659dc9d374201f7f9e38
         'D' =>
         array (
             'Dotenv\\' => 7,
+        ),
+        'A' =>
+        array (
+            'App\\' => 4,
         ),
     );
 
@@ -54,10 +54,6 @@ class ComposerStaticInitd51e3e9d0bd4659dc9d374201f7f9e38
         array (
             0 => __DIR__ . '/..' . '/phpoption/phpoption/src/PhpOption',
         ),
-        'Levandat\\PhpProjects\\' =>
-        array (
-            0 => __DIR__ . '/../..' . '/src',
-        ),
         'GrahamCampbell\\ResultType\\' =>
         array (
             0 => __DIR__ . '/..' . '/graham-campbell/result-type/src',
@@ -65,6 +61,10 @@ class ComposerStaticInitd51e3e9d0bd4659dc9d374201f7f9e38
         'Dotenv\\' =>
         array (
             0 => __DIR__ . '/..' . '/vlucas/phpdotenv/src',
+        ),
+        'App\\' =>
+        array (
+            0 => __DIR__ . '/../..' . '/src',
         ),
     );
 
