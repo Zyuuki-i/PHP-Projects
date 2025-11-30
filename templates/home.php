@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 if (!defined('APP_RUNNING')) {
     header('Location: /home');
     exit;
@@ -16,15 +17,20 @@ if (!defined('APP_RUNNING')) {
         <?php
             $tenfile = "";
 
-            //logic lấy file hình ở đây
-
+            foreach ($hinhList as $h) {
+                if ($h->ma_sp == $item->ma_sp) {
+                    $tenfile = $h->tenhinh;
+                    break;
+                }
+            }
+            
             $baseUrl = "/assets/images/anhsp/";
             $url = "";
-            
-            if ($tenfile == "") {
+
+            if ($tenfile === "") {
                 $url = $baseUrl . "default.png";
             } else {
-                $url = $baseUrl . trim($item->MaSp) . "/" . $tenfile;
+                $url = $baseUrl . trim($item->ma_sp) . "/" . $tenfile;
             }
 
             $giaMoi = $item->giasp;

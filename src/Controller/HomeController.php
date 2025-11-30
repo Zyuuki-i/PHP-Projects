@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Model\Product;
+use App\Model\Hinh;
 
 class HomeController
 {
@@ -9,12 +10,13 @@ class HomeController
     {
         $pdo = require __DIR__ . '/../../config/config.php';
         $products = Product::getAll($pdo);
-        
+        $hinhList = Hinh::getAll($pdo);
+
         if($products != null) {
             $products = array_slice($products, 0, 6);
         }
 
-        $content = $this->render('home.php', ['products' => $products]);
+        $content = $this->render('home.php', ['products' => $products, 'hinhList' => $hinhList]);
 
         return $this->render('layout.php', ['content' => $content]);
     }
