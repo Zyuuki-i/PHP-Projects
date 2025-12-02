@@ -24,7 +24,7 @@ if (!defined('APP_RUNNING')) {
                 }
             }
             
-            $baseUrl = "/assets/images/anhsp/";
+            $baseUrl = "./assets/images/anhsp/";
             $url = "";
 
             if ($tenfile === "") {

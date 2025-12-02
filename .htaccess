@@ -1,4 +1,7 @@
+Options -Indexes
+
 RewriteEngine On
+RewriteBase /PHP-Projects/
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d

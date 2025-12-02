@@ -23,19 +23,20 @@ class Product
     }
 
     public function __destruct()
-    {}
+    {
+        
+    }
 
-    public function __get($property) {
+     public function __get($property)
+    {
         if (property_exists($this, $property)) {
-            if($property === 'ma_sp'){
-                return "Không thể truy cập mã sản phẩm";
-            }            
-            return $this->$property;           
+            return $this->$property;
         }
         return null;
     }
 
-    public function __set($property, $value) {
+    public function __set($property, $value)
+    {
         if (property_exists($this, $property)) {
             $this->$property = $value;
         }

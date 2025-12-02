@@ -19,7 +19,7 @@ if (!defined('APP_RUNNING')) {
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
                <a class="navbar-brand me-0" href="">
-                    <img src="/assets/images/logo.png" alt="Logo" style="height:50px;" class="ms-5 me-5" />
+                    <img src="./assets/images/logo.png" alt="Logo" style="height:50px;" class="ms-5 me-5" />
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">

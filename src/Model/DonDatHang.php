@@ -24,6 +24,26 @@ class DonDatHang
         $this->tt_thanhtoan = $tt_thanhtoan;
     }
 
+    public function __destruct()
+    {
+        
+    }
+
+     public function __get($property)
+    {
+        if (property_exists($this, $property)) {
+            return $this->$property;
+        }
+        return null;
+    }
+
+    public function __set($property, $value)
+    {
+        if (property_exists($this, $property)) {
+            $this->$property = $value;
+        }
+    }
+    
     public static function getAll($pdo)
     {
         $items = [];

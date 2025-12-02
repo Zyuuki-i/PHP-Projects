@@ -11,12 +11,10 @@ use App\Controller\HomeController;
 
 $router = new Router();
 
-$router->add('GET', '/', function () {
-    header("Location: /home");
-    exit;
-});
+global $baseUrl;
+$baseUrl = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/');
 
-$router->add('GET', '/home', function () {
+$router->add('GET', "$baseUrl/home", function ()  {
     $controller = new HomeController();
     return $controller->index();
 });
