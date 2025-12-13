@@ -35,7 +35,6 @@ class HomeController
         $pdo = require __DIR__ . '/../../config/config.php';
         $nguoidungs = NguoiDung::getAll($pdo);
         $danhgias = DanhGia::getAll($pdo);
-
         $content = $this->view('danhgia.php', ['danhgias' => $danhgias, 'nguoidungs' => $nguoidungs]);
 
         return $this->render('main_layout.php', ['content' => $content]);

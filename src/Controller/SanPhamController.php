@@ -21,7 +21,6 @@ class SanPhamController
 
     public function chiTietSP($id)
     {
-
         echo 'Chi tiết sản phẩm có mã: ' . htmlspecialchars($id);
     }
 

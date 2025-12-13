@@ -4,6 +4,7 @@ if (!defined('APP_RUNNING')) {
     header('Location: /home');
     exit;
 }
+$baseUrl = $GLOBALS['baseUrl'] ?? '';
 ?>
 <div class="text-center mb-5" style="width: 500px; margin: auto; padding-top: 50px;">
     <h1 class="text-danger">Nhạc cụ cổ điển</h1>
@@ -24,13 +25,13 @@ if (!defined('APP_RUNNING')) {
                 }
             }
             
-            $baseUrl = "./assets/images/anhsp/";
+            $dir = "./assets/images/anhsp/";
             $url = "";
 
             if ($tenfile === "") {
-                $url = $baseUrl . "default.png";
+                $url = $dir . "default.png";
             } else {
-                $url = $baseUrl . trim($item->ma_sp) . "/" . $tenfile;
+                $url = $dir . trim($item->ma_sp) . "/" . $tenfile;
             }
 
             $giaMoi = $item->giasp;
@@ -40,7 +41,7 @@ if (!defined('APP_RUNNING')) {
             <div class="card h-100">
                 <div class="col h-100">
                     <div class="card">
-                        <a href="/SanPham/ChiTiet?id=<?php echo $item->ma_sp; ?>">
+                        <a href="<?=$baseUrl?>/SanPham/ChiTiet?id=<?php echo $item->ma_sp; ?>">
                             <div class="d-flex align-content-center p-1" style="height: 400px">
                                 <img src="<?php echo $url; ?>" class="card-img-top" alt="Hình Sản Phẩm" style="object-fit:contain;">
                             </div>
@@ -66,7 +67,7 @@ if (!defined('APP_RUNNING')) {
                             </h4>
                             
                             <div class="d-flex w-100 justify-content-end">                
-                                <form action="xu-ly-mua-hang.php?id=<?php echo $item->ma_sp; ?>" method="post" class="flex-fill">
+                                <form action="<?=$baseUrl?>/DonDatHang/MuaNgay?id=<?php echo $item->ma_sp; ?>" method="post" class="flex-fill">
                                     <input type="hidden" name="soluong" value="1" /> 
                                     <button type="submit" class="btn btn-warning w-100 mt-2 fs-4">Mua ngay</button>
                                 </form>
@@ -79,7 +80,7 @@ if (!defined('APP_RUNNING')) {
     <?php endforeach; ?>
     </div>
     <div class="d-flex justify-content-center align-items-center">
-        <a href="<?=$baseUrl[0]?>/SanPham" class="fs-4 text-decoration-none text-primary">Xem thêm</a>
+        <a href="<?=$baseUrl?>/SanPham" class="fs-4 text-decoration-none text-primary">Xem thêm</a>
     </div>
 </div>
 <script>

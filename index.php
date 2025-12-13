@@ -37,8 +37,6 @@ $router->add('GET', "$baseUrl/DanhGia", function ()  {
     return $controller->danhGia();
 });
 
-
-
 //SAN PHAM ROUTES
 $router->add('GET', "$baseUrl/SanPham", function ()  {
     $controller = new SanPhamController();

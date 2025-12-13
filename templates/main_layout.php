@@ -3,6 +3,7 @@ if (!defined('APP_RUNNING')) {
     header('Location: /home');
     exit;
 }
+$baseUrl = $GLOBALS['baseUrl'] ?? '';
 ?>
 <!doctype html>
 <html lang="vi">
@@ -18,7 +19,7 @@ if (!defined('APP_RUNNING')) {
 <header>
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-               <a class="navbar-brand me-0" href="">
+               <a class="navbar-brand me-0" href="<?=$baseUrl?>/">
                     <img src="./assets/images/logo.png" alt="Logo" style="height:50px;" class="ms-5 me-5" />
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -28,16 +29,16 @@ if (!defined('APP_RUNNING')) {
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between" id="navbarSupportedContent">
                     <ul class="navbar-nav flex-grow-1 d-flex justify-content-evenly me-5">
                         <li class="nav-item">
-                            <a href="/" class="nav-link text-dark fs-5" >Trang chủ</a>
+                            <a href="<?=$baseUrl?>/" class="nav-link text-dark fs-5" >Trang chủ</a>
                         </li>
                         <li class="nav-item">
-                            <a href="/GioiThieu" class="nav-link text-dark fs-5" >Giới thiệu</a>
+                            <a href="<?=$baseUrl?>/GioiThieu" class="nav-link text-dark fs-5" >Giới thiệu</a>
                         </li>
                         <li class="nav-item">
-                            <a href="/SanPham" class="nav-link text-dark fs-5">Sản phẩm</a>
+                            <a href="<?=$baseUrl?>/SanPham" class="nav-link text-dark fs-5">Sản phẩm</a>
                         </li>
                         <li class="nav-item">
-                            <a href="/DanhGia" class="nav-link text-dark fs-5">Đánh giá</a>
+                            <a href="<?=$baseUrl?>/DanhGia" class="nav-link text-dark fs-5">Đánh giá</a>
                         </li>
                     </ul>
                 </div>
@@ -50,13 +51,13 @@ if (!defined('APP_RUNNING')) {
                     </div>
                 </div>
                 <div class="border border-secondary rounded-2">
-                    <form action="/SanPham/TimKiem" class="d-flex" method="get">
+                    <form action="<?=$baseUrl?>/SanPham/TimKiem" class="d-flex" method="get">
                         <input class="form-control border-0 " type="search" name="keyword" placeholder="Tìm kiếm sản phẩm..">
                         <button type="submit" class="btn rounded-2"><i class="bi bi-search"></i></button>
                     </form>
                 </div>
                 <div class="position-relative">
-                    <form action="/DonDatHang/GioHang" method="post">
+                    <form action="<?=$baseUrl?>/DonDatHang/GioHang" method="post">
                         <button class="btn ms-3 me-3" type="submit">
                             <i class="bi bi-cart fs-4"></i>
                             <i class="bi bi-circle-fill text-danger position-absolute start-50"></i>
@@ -66,7 +67,7 @@ if (!defined('APP_RUNNING')) {
                         </button>
                     </form>
                 </div>
-                <form action="/User/DangNhap" method="post">
+                <form action="<?=$baseUrl?>/User/DangNhap" method="post">
                     <button class="btn btn-outline-info d-flex align-items-center" type="submit">
                         <i class="bi bi-person fs-4"></i><span class="ms-2">Đăng Nhập</span>
                     </button>
