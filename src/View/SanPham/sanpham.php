@@ -27,8 +27,8 @@
                     break;
                 }
             }
-            
-            $dir = "../assets/images/anhsp/";
+
+            $dir = ($baseUrl ? $baseUrl : '..') . "/assets/images/anhsp/";
             $url = "";
 
             if ($tenfile === "") {

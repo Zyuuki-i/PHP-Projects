@@ -4,6 +4,7 @@
     exit;
     }
     $max = 10;
+    $baseUrl = $GLOBALS['baseUrl'] ?? '';
 ?>
 <div class="text-center mt-5 mb-5">
     <h2 class="section-title text-uppercase">Khách hàng nói gì về chúng tôi</h2>
@@ -18,12 +19,12 @@
         <section class="mb-4 bg-light p-3 border-start border-primary border-3 rounded-2 row">
             <div class="col-sm-4 d-flex align-items-center mb-2">
                 <?php
-                    $url = "../assets/images/anhnd/";
+                    $url = ($baseUrl ? $baseUrl : '..') . "/assets/images/anhnd/";
                     foreach($nguoidungs as $nd)
                     {
                         if($nd->ma_nd == $item->ma_nd)
                         {
-                            $url .= $nd->hinh;
+                            $url .= $nd->hinh ? $nd->hinh : "default.png";
                             echo '<img src="' . $url . '" alt="Avatar" class="rounded-circle me-3" style="width:50px; height:50px; object-fit:cover;">';
                             echo '<h5 class="mb-0">' . $nd->tennd . '</h5>';
                         }
