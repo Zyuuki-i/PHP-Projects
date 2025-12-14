@@ -268,9 +268,11 @@ $pageTitle = "Chi tiết sản phẩm";
                                     <a  href="<?=$baseUrl?>/SanPham/ChiTiet?id=<?= $item->ma_sp ?>" class="text-dark text-decoration-none"><?= $item->tensp ?></a>
                                 </h6>
                                 <div class="text-danger fw-bold"><?= number_format($item->giasp, 0, ',', '.') ?> đ</div>
-                                <a href="<?=$baseUrl?>/DonDatHang/MuaNgay?id=<?= $item->ma_sp ?>" class="btn btn-sm btn-outline-dark w-100 mt-2 rounded-pill">
-                                    Mua ngay
-                                </a>
+                                <form action="<?=$baseUrl?>/DonDatHang/MuaNgay" method="post" class="d-block">
+                                    <input type="hidden" name="id" value="<?= $item->ma_sp ?>">
+                                    <input type="hidden" name="soluong" value="1">
+                                    <button type="submit" class="btn btn-sm btn-outline-dark w-100 mt-2 rounded-pill">Mua ngay</button>
+                                </form>
                             </div>
                         </div>
                     </div>

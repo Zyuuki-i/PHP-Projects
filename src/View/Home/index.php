@@ -127,8 +127,9 @@ $baseUrl = $GLOBALS['baseUrl'] ?? '';
                 </p>
 
                 <div class="mt-auto">
-                    <form action="<?=$baseUrl?>/DonDatHang/MuaNgay?id=<?php echo $item->ma_sp; ?>" method="post">
+                    <form action="<?=$baseUrl?>/DonDatHang/MuaNgay" method="post">
                         <input type="hidden" name="soluong" value="1" />
+                        <input type="hidden" name="id" value="<?php echo $item->ma_sp; ?>" />
                         <button type="submit" class="btn btn-buy w-100 rounded-pill py-2">
                             <i class="bi bi-cart-plus me-1"></i> Mua Ngay
                         </button>

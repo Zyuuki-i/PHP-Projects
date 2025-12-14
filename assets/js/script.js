@@ -38,4 +38,13 @@ document.addEventListener("DOMContentLoaded", function () {
             updateQuantity(val);
         });
     }
+    const inputs = document.querySelectorAll(".input-soluong");
+    inputs.forEach(input => {
+        input.addEventListener("change", function() {
+            let val = parseInt(this.value);
+            if (isNaN(val) || val < 1) {
+                this.value = 1;
+            }
+        });
+    });
 });

@@ -10,8 +10,9 @@ class NguoiDung
     public $diachi;
     public $email;
     public $hinh;
+    public $trangthai;
 
-    public function __construct($ma_nd, $tennd, $matkhau, $email, $sdt = '', $diachi = '', $hinh = '')
+    public function __construct($ma_nd, $tennd, $matkhau, $email, $sdt = '', $diachi = '', $hinh = '', $trangthai = 0)
     {
         $this->ma_nd = $ma_nd;
         $this->tennd = $tennd;
@@ -20,6 +21,7 @@ class NguoiDung
         $this->sdt = $sdt;
         $this->diachi = $diachi;
         $this->hinh = $hinh;
+        $this->trangthai = $trangthai;
     }
 
     public function __destruct()
@@ -44,7 +46,7 @@ class NguoiDung
     {
         $items = [];
         try {
-            $query = "SELECT ma_nd, tennd, matkhau, sdt, diachi, email, hinh FROM nguoi_dung";
+            $query = "SELECT ma_nd, tennd, matkhau, sdt, diachi, email, hinh, trangthai FROM nguoi_dung";
             $stmt = $pdo->query($query);
             while ($row = $stmt->fetch()) {
                 $items[] = new self(
@@ -54,10 +56,57 @@ class NguoiDung
                     $row['email'],
                     $row['sdt'] ?? '',
                     $row['diachi'] ?? '',
-                    $row['hinh'] ?? ''
+                    $row['hinh'] ?? '',
+                    $row['trangthai'] ?? 0
                 );
             }
         } catch (\Exception) {}
         return count($items) > 0 ? $items : [];
+    }
+
+    public static function getByEmail($pdo, $email)
+    {
+        try {
+            $query = "SELECT ma_nd, tennd, matkhau, sdt, diachi, email, hinh, trangthai FROM nguoi_dung WHERE email = :email LIMIT 1";
+            $stmt = $pdo->prepare($query);
+            $stmt->execute(['email' => $email]);
+            $row = $stmt->fetch();
+            if ($row) {
+                return new self(
+                    $row['ma_nd'],
+                    $row['tennd'],
+                    $row['matkhau'],
+                    $row['email'],
+                    $row['sdt'] ?? '',
+                    $row['diachi'] ?? '',
+                    $row['hinh'] ?? '',
+                    $row['trangthai'] ?? 0
+                );
+            }
+        } catch (\Exception) {}
+        return null;
+    }
+
+    public static function create($pdo, $tennd, $matkhau, $email, $sdt = '', $diachi = '', $hinh = '', $trangthai = 1)
+    {
+        try {
+            $stmt = $pdo->query("SELECT MAX(ma_nd) AS m FROM nguoi_dung");
+            $row = $stmt->fetch();
+            $next = ($row && $row['m']) ? ((int)$row['m'] + 1) : 1;
+            $query = "INSERT INTO nguoi_dung (ma_nd, tennd, matkhau, sdt, diachi, email, hinh, trangthai) VALUES (:ma_nd, :tennd, :matkhau, :sdt, :diachi, :email, :hinh, :trangthai)";
+            $p = $pdo->prepare($query);
+            $p->execute([
+                'ma_nd' => $next,
+                'tennd' => $tennd,
+                'matkhau' => $matkhau,
+                'sdt' => $sdt,
+                'diachi' => $diachi,
+                'email' => $email,
+                'hinh' => $hinh,
+                'trangthai' => $trangthai
+            ]);
+            return self::getByEmail($pdo, $email);
+        } catch (\Exception) {}
+        return null;
     }
 }

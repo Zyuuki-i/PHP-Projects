@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: sql101.infinityfree.com
--- Thời gian đã tạo: Th12 14, 2025 lúc 02:09 AM
+-- Thời gian đã tạo: Th12 14, 2025 lúc 03:53 AM
 -- Phiên bản máy phục vụ: 11.4.7-MariaDB
 -- Phiên bản PHP: 7.2.22
 
@@ -178,8 +178,8 @@ CREATE TABLE `nguoi_dung` (
 --
 
 INSERT INTO `nguoi_dung` (`ma_nd`, `tennd`, `matkhau`, `sdt`, `diachi`, `email`, `hinh`, `trangthai`) VALUES
-(1, 'Lê Minh Hoàng', '123456', '0988000333', 'Hà Nội', 'customer1@zyuuki.vn', NULL, 0),
-(2, 'Nguyễn Thu Trang', '123456', '0988000444', 'TP. Hồ Chí Minh', 'customer2@zyuuki.vn', NULL, 0);
+(1, 'Lê Minh Hoàng', '123456', '0988000333', 'Hà Nội', 'customer1@zyuuki.vn', NULL, 1),
+(2, 'Nguyễn Thu Trang', '123456', '0988000444', 'TP. Hồ Chí Minh', 'customer2@zyuuki.vn', NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -205,9 +205,9 @@ CREATE TABLE `nhan_vien` (
 --
 
 INSERT INTO `nhan_vien` (`ma_nv`, `tennv`, `matkhau`, `phai`, `sdt`, `email`, `diachi`, `hinh`, `trangthai`, `ma_vt`) VALUES
-('NV_01', 'Trần Văn Nam', '123456', 1, '0912000111', 'staff1@zyuuki.vn', 'Hà Nội', NULL, 0, 'Staff'),
-('NV_02', 'Phạm Thị Linh', '123456', 0, '0912000222', 'staff2@zyuuki.vn', 'TP. Hồ Chí Minh', NULL, 0, 'Staff'),
-('QL_01', 'Võ Chung Khánh Đăng', '123456', 1, '0912345678', 'admin@zyuuki.vn', 'Cần Thơ', NULL, 0, 'Admin');
+('NV_01', 'Trần Văn Nam', '123456', 1, '0912000111', 'staff1@zyuuki.vn', 'Hà Nội', NULL, 1, 'Staff'),
+('NV_02', 'Phạm Thị Linh', '123456', 0, '0912000222', 'staff2@zyuuki.vn', 'TP. Hồ Chí Minh', NULL, 1, 'Staff'),
+('QL_01', 'Võ Chung Khánh Đăng', '123456', 1, '0912345678', 'admin@zyuuki.vn', 'Cần Thơ', NULL, 1, 'Admin');
 
 -- --------------------------------------------------------
 

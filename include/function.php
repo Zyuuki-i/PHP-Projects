@@ -23,3 +23,7 @@ function input($index, $value = '')
     if (isset($_GET[$index]))  return $_GET[$index];
     return $value;
 }
+
+function formatMoney($amount) {
+    return number_format($amount, 0, ',', '.');
+}

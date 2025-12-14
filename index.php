@@ -1,14 +1,14 @@
 <?php
 
-session_start();
-
 define('APP_RUNNING', true);
 
 require_once __DIR__ . '/vendor/autoload.php';
+session_start();
 
 use App\Router;
 use App\Controller\HomeController;
 use App\Controller\SanPhamController;
+use App\Controller\UserController;
 
 $router = new Router();
 
@@ -51,6 +51,53 @@ $router->add("GET","$baseUrl/SanPham/ChiTiet", function () {
     } else {
         return $controller->index();;
     }
+});
+
+// USER ROUTES
+$router->add('POST', "$baseUrl/User/Login", function() {
+    $c = new UserController();
+    return $c->login();
+});
+
+$router->add('POST', "$baseUrl/User/Register", function() {
+    $c = new UserController();
+    return $c->register();
+});
+
+$router->add('GET', "$baseUrl/User/Logout", function() {
+    $c = new UserController();
+    return $c->logout();
+});
+
+// CART ROUTES
+$router->add('POST', "$baseUrl/DonDatHang/ThemVaoGio", function() {
+    $c = new App\Controller\DonDatHangController();
+    return $c->ThemVaoGio();
+});
+
+$router->add('POST', "$baseUrl/DonDatHang/MuaNgay", function() {
+    $c = new App\Controller\DonDatHangController();
+    return $c->MuaNgay();
+});
+
+$router->add('GET', "$baseUrl/DonDatHang/GioHang", function() {
+    $c = new App\Controller\DonDatHangController();
+    return $c->gioHang();
+});
+// allow POST for form redirects
+$router->add('POST', "$baseUrl/DonDatHang/GioHang", function() {
+    $c = new App\Controller\DonDatHangController();
+    return $c->gioHang();
+});
+
+$router->add('POST', "$baseUrl/DonDatHang/XoaItem", function() {
+    $c = new App\Controller\DonDatHangController();
+    return $c->XoaItem();
+});
+
+$router->add('POST', "$baseUrl/DonDatHang/ClearCart", function() {
+    $c = new App\Controller\DonDatHangController();
+    return $c->ClearCart();
 });
 
 $method = $_SERVER['REQUEST_METHOD'];

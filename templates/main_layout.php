@@ -32,7 +32,7 @@ $baseUrl = $GLOBALS['baseUrl'] ?? '';
 <header>
     <nav class="navbar navbar-expand-lg sticky-top py-3">
         <div class="container">
-            <a class="navbar-brand me-4" href="<?=$baseUrl?>/">
+            <a class="navbar-brand me-2" href="<?=$baseUrl?>/">
                 <img src="<?=$baseUrl?>/assets/images/logo.png" alt="Zyuuki Music" style="height: 50px; object-fit: contain;">
                 </a>
 
@@ -61,28 +61,117 @@ $baseUrl = $GLOBALS['baseUrl'] ?? '';
                         <span class="fw-bold text-dark">0869 347 040</span>
                     </div>
 
-                    <form action="<?=$baseUrl?>/DonDatHang/GioHang" method="post" class="d-inline">
+                    <form action="<?=$baseUrl?>/DonDatHang/GioHang" method="get" class="d-inline">
                         <button class="cart-btn text-dark p-2" type="submit">
                             <i class="bi bi-cart3 fs-4"></i>
                             <span class="badge rounded-pill bg-danger cart-badge">0</span>
                         </button>
                     </form>
 
-                    <form action="<?=$baseUrl?>/User/DangNhap" method="post" class="d-inline">
-                        <button class="btn btn-outline-dark rounded-pill px-4" type="submit">
+                    <?php if (!isset($_SESSION['user'])): ?>
+                        <button class="btn btn-outline-dark rounded-pill px-4" type="button" data-bs-toggle="modal" data-bs-target="#authModal">
                             <i class="bi bi-person-fill me-1"></i> Đăng nhập
                         </button>
-                    </form>
+                    <?php else: ?>
+                        <div class="dropdown">
+                            <button class="btn btn-outline-dark dropdown-toggle rounded-pill px-3" type="button" id="userMenuBtn" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-person-circle me-1"></i> <?= htmlspecialchars($_SESSION['user']['tennd'] ?? $_SESSION['user']['email']) ?>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenuBtn">
+                                <li><a class="dropdown-item" href="<?= $baseUrl ?>/User/ThongTin?id=<?= $_SESSION['user']['ma_nd'] ?>">Xem thông tin</a></li>
+                                <li><a class="dropdown-item" href="<?= $baseUrl ?>/User/LichSuDatHang?id=<?= $_SESSION['user']['ma_nd'] ?>">Lịch sử đặt hàng</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="<?= $baseUrl ?>/User/Logout">Đăng xuất</a></li>
+                            </ul>
+                        </div>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
     </nav>
 </header>
 
+<div class="modal fade" id="authModal" tabindex="-1" aria-labelledby="authModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="authModalLabel">Tài khoản</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <ul class="nav nav-tabs" id="authTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="login-tab" data-bs-toggle="tab" data-bs-target="#login" type="button" role="tab">Đăng nhập</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="register-tab" data-bs-toggle="tab" data-bs-target="#register" type="button" role="tab">Đăng ký</button>
+                    </li>
+                </ul>
+                <div class="tab-content pt-3">
+                    <div class="tab-pane fade show active" id="login" role="tabpanel">
+                        <?php if (isset($_SESSION['login_error'])): ?>
+                            <div class="alert alert-danger"><?= htmlspecialchars($_SESSION['login_error']) ?></div>
+                        <?php endif; ?>
+                        <form action="<?= $baseUrl ?>/User/Login" method="post">
+                            <div class="mb-3">
+                                <label for="loginEmail" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="loginEmail" name="email" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="loginPassword" class="form-label">Mật khẩu</label>
+                                <input type="password" class="form-control" id="loginPassword" name="password" required>
+                            </div>
+                            <div class="d-flex justify-content-end">
+                                <button type="submit" class="btn btn-primary">Đăng nhập</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="tab-pane fade" id="register" role="tabpanel">
+                        <?php if (isset($_SESSION['register_error'])): ?>
+                            <div class="alert alert-danger"><?= htmlspecialchars($_SESSION['register_error']) ?></div>
+                        <?php endif; ?>
+                        <form action="<?= $baseUrl ?>/User/Register" method="post">
+                            <div class="mb-3">
+                                <label for="regName" class="form-label">Họ tên</label>
+                                <input type="text" class="form-control" id="regName" name="name" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="regEmail" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="regEmail" name="email" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="regPassword" class="form-label">Mật khẩu</label>
+                                <input type="password" class="form-control" id="regPassword" name="password" required>
+                            </div>
+                            <div class="d-flex justify-content-end">
+                                <button type="submit" class="btn btn-success">Đăng ký</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="flex-grow-1 bg-light">
     <main role="main" class="container py-4">
+        <?php if (isset($_SESSION['MessageSuccess_GioHang'])): ?>
+            <div class="alert alert-success text-center fw-bold shadow-sm fade show mb-4">
+                <i class="bi bi-check-circle-fill me-2"></i> <?= htmlspecialchars($_SESSION['MessageSuccess_GioHang']) ?>
+            </div>
+            <?php unset($_SESSION['MessageSuccess_GioHang']); ?>
+        <?php endif; ?>
+
+        <?php if (isset($_SESSION['MessageError_GioHang'])): ?>
+            <div class="alert alert-danger text-center fw-bold shadow-sm fade show mb-4">
+                <i class="bi bi-exclamation-triangle-fill me-2"></i> <?= htmlspecialchars($_SESSION['MessageError_GioHang']) ?>
+            </div>
+            <?php unset($_SESSION['MessageError_GioHang']); ?>
+        <?php endif; ?>
+
         <?php if (isset($content)) echo $content; ?>
-        
+
         <?php if (!isset($content)): ?>
             <div class="alert alert-info text-center">
                 <h3>KHÔNG TÌM THẤY NỘI DUNG PHÙ HỢP!</h3>
@@ -138,6 +227,28 @@ $baseUrl = $GLOBALS['baseUrl'] ?? '';
 <?php $jsPath = __DIR__ . '/../assets/js/script.js';
     $jsVersion = file_exists($jsPath) ? filemtime($jsPath) : time(); ?>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<?php
+    // If there were auth errors, trigger modal and select proper tab
+    $openAuthModal = false;
+    $authTab = 'login';
+    if (isset($_SESSION['login_error'])) { $openAuthModal = true; $authTab = 'login'; }
+    if (isset($_SESSION['register_error'])) { $openAuthModal = true; $authTab = 'register'; }
+?>
+<?php if ($openAuthModal): ?>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var myModal = new bootstrap.Modal(document.getElementById('authModal'));
+        var tabEl = document.querySelector('#authTab button#<?= $authTab ?>-tab');
+        if (tabEl) new bootstrap.Tab(tabEl).show();
+        myModal.show();
+    });
+</script>
+<?php endif; ?>
 <script src="<?= $baseUrl ?>/assets/js/script.js?v=<?= $jsVersion ?>"></script>
+<?php
+    // Clear flash messages so modal won't reopen repeatedly
+    unset($_SESSION['login_error']);
+    unset($_SESSION['register_error']);
+?>
 </body>
 </html>
