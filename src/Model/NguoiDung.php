@@ -109,4 +109,30 @@ class NguoiDung
         } catch (\Exception) {}
         return null;
     }
+
+    public static function update($pdo, $ma_nd, $tennd, $sdt = '', $diachi = '', $hinh = null)
+    {
+        try {
+            $sets = ['tennd = :tennd', 'sdt = :sdt', 'diachi = :diachi'];
+            $params = ['tennd' => $tennd, 'sdt' => $sdt, 'diachi' => $diachi, 'ma_nd' => $ma_nd];
+            if ($hinh !== null) {
+                $sets[] = 'hinh = :hinh';
+                $params['hinh'] = $hinh;
+            }
+            $sql = 'UPDATE nguoi_dung SET ' . implode(', ', $sets) . ' WHERE ma_nd = :ma_nd';
+            $stmt = $pdo->prepare($sql);
+            return $stmt->execute($params);
+        } catch (\Exception) {}
+        return false;
+    }
+
+    public static function updatePassword($pdo, $ma_nd, $newPassword)
+    {
+        try {
+            $sql = 'UPDATE nguoi_dung SET matkhau = :matkhau WHERE ma_nd = :ma_nd';
+            $stmt = $pdo->prepare($sql);
+            return $stmt->execute(['matkhau' => $newPassword, 'ma_nd' => $ma_nd]);
+        } catch (\Exception) {}
+        return false;
+    }
 }

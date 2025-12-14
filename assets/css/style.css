@@ -39,8 +39,8 @@ body {
 .cart-badge {
     font-size: 0.7rem;
     position: absolute;
-    top: 0;
-    right: 0;
+    top: 10px;
+    right: 3px;
     transform: translate(25%, -25%);
 }
 
@@ -89,7 +89,6 @@ footer a:hover {
     max-height: 420px !important;
 }
 
-/* Product Card Styling */
 .product-card {
     transition: all 0.3s ease;
     border: 1px solid #eee;
@@ -167,7 +166,7 @@ footer a:hover {
     color: #fff;
 }
 
-/* Card sản phẩm */
+
 .product-card {
     transition: all 0.3s ease-in-out;
     border: 1px solid #e0e0e0;
@@ -175,18 +174,18 @@ footer a:hover {
     background: #fff;
 }
 
-/* Hiệu ứng bay lên khi di chuột */
+
 .product-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-    border-color: var(--bs-warning); /* Viền vàng khi hover */
+    border-color: var(--bs-warning);
 }
 
-/* Khung ảnh vuông vắn, không bị méo */
+
 .card-img-wrapper {
     position: relative;
     width: 100%;
-    padding-top: 100%; /* Tỉ lệ 1:1 (Vuông) */
+    padding-top: 100%; 
     overflow: hidden;
     background: #fff;
 }
@@ -311,4 +310,23 @@ footer a:hover {
     height: 60px;
     border-radius: 8px;
     transition: all 0.3s;
+}
+
+/* User pages: profile and order history */
+.user-card {
+    max-width: 100%;
+}
+
+.order-card {
+    border-left: 4px solid var(--primary-color);
+}
+
+.order-badge {
+    padding: 0.45rem 0.75rem;
+    border-radius: 0.5rem;
+    font-weight: 700;
+}
+
+@media (max-width: 767px) {
+    .order-card .card-body { gap: 0.75rem; }
 }

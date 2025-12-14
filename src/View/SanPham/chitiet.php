@@ -258,9 +258,8 @@ $pageTitle = "Chi tiết sản phẩm";
                         <div class="card h-100 product-card shadow-sm border-0 rounded-3">
                             <a href="<?= $baseUrl ?>/SanPham/ChiTiet?id=<?= $item->ma_sp ?>" class="text-decoration-none">
                                 <div class="card-img-wrapper border-bottom position-relative pt-100" style="padding-top: 100%; position: relative; overflow: hidden;">
-                                    <img src="<?= $urlItem ?>" 
-                                        alt="<?= $item->tensp ?? $item->Tensp ?>" 
-                                        onerror="this.src='<?= $baseUrl !== '' ? $baseUrl : '' ?>/assets/images/anhsp/default.png'">
+                                    <img src="<?= $urlItem ?>"
+                                        alt="<?= $item->tensp ?? $item->Tensp ?>" >
                                 </div>
                             </a>
                             <div class="card-body p-3">

@@ -18,7 +18,7 @@
         <section class="mb-4 bg-light p-3 border-start border-primary border-3 rounded-2 row">
             <div class="col-sm-4 d-flex align-items-center mb-2">
                 <?php
-                    $url = "./assets/images/anhnd/";
+                    $url = "../assets/images/anhnd/";
                     foreach($nguoidungs as $nd)
                     {
                         if($nd->ma_nd == $item->ma_nd)

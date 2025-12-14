@@ -28,7 +28,7 @@
                 }
             }
             
-            $dir = "./assets/images/anhsp/";
+            $dir = "../assets/images/anhsp/";
             $url = "";
 
             if ($tenfile === "") {
@@ -80,19 +80,22 @@
                 $tp = (int)$tongtrang;
                 $prevClass = $cp <= 1 ? ' disabled' : '';
                 $nextClass = $cp >= $tp ? ' disabled' : '';
+                $loaiID = $_SESSION['loaiID'] ?? null;
+                $nsxID = $_SESSION['nsxID'] ?? null;
+                $keyword = $_SESSION['keyword'] ?? null;
             ?>
             <li class="page-item<?php echo $prevClass; ?>">
-                <a class="page-link" href="<?php echo htmlspecialchars($baseUrl . '/SanPham?page=' . max(1, $cp - 1)); ?>" aria-label="Previous">
+                <a class="page-link" href="<?php echo htmlspecialchars($baseUrl . '/SanPham?maloai=' . $loaiID . '&mansx=' . $nsxID . '&keyword=' . $keyword . '&page=' . max(1, $cp - 1)); ?>" aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
                 </a>
             </li>
             <?php for ($i = 1; $i <= $tp; $i++): ?>
                 <li class="page-item<?php echo ($i === $cp) ? ' active' : ''; ?>">
-                    <a class="page-link" href="<?php echo htmlspecialchars($baseUrl . '/SanPham?page=' . $i); ?>"><?php echo $i; ?></a>
+                    <a class="page-link" href="<?php echo htmlspecialchars($baseUrl . '/SanPham?maloai=' . $loaiID . '&mansx=' . $nsxID . '&keyword=' . $keyword . '&page=' . $i); ?>"><?php echo $i; ?></a>
                 </li>
             <?php endfor; ?>
             <li class="page-item<?php echo $nextClass; ?>">
-                <a class="page-link" href="<?php echo htmlspecialchars($baseUrl . '/SanPham?page=' . min($tp, $cp + 1)); ?>" aria-label="Next">
+                <a class="page-link" href="<?php echo htmlspecialchars($baseUrl . '/SanPham?maloai=' . $loaiID . '&mansx=' . $nsxID . '&keyword=' . $keyword . '&page=' . min($tp, $cp + 1)); ?>" aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
                 </a>
             </li>

@@ -14,16 +14,33 @@ class SanPhamController
 {
     public function index()
     {
+        $loaiID = $_GET['maloai'] ?? null;
+        $nsxID = $_GET['mansx'] ?? null;
+        $keyword = $_GET['keyword'] ?? null;
+        if (session_status() === PHP_SESSION_NONE) session_start();
+        $_SESSION['loaiID'] = $loaiID;
+        $_SESSION['nsxID'] = $nsxID;
+        $_SESSION['keyword'] = $keyword;
         global $pdo;
         $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
         if ($page < 1) $page = 1;
         $hienthi = 8;
-        
-        $tongsp = Product::countAll($pdo);
+        $sp = [];
+        if ($loaiID != null && $loaiID != '') {
+            $sp = Product::getByLoai($pdo, $loaiID);
+        } elseif ($nsxID != null && $nsxID != '') {
+            $sp = Product::getByNSX($pdo, $nsxID);
+        } elseif ($keyword != null && $keyword != '') {
+            $sp = Product::search($pdo, $keyword);
+        } else {
+            $sp = Product::getAll($pdo);
+        }
+
+        $tongsp = count($sp);
         $tongtrang = $tongsp > 0 ? (int)ceil($tongsp / $hienthi) : 1;
         if ($page > $tongtrang) $page = $tongtrang;
         $offset = ($page - 1) * $hienthi;
-        $products = Product::getPage($pdo, $hienthi, $offset);
+        $products = Product::getPage($pdo, $hienthi, $offset, $sp);
         $hinhList = Hinh::getAll($pdo);
 
         $content = $this->view('sanpham.php', [

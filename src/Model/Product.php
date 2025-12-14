@@ -62,6 +62,63 @@ class Product
         return null;
     }
 
+    public static function getByNSX($pdo, $nsxID){
+        $sql = 'select ma_sp, tensp, ma_nsx, ma_loai, giasp, soluongton, mota from san_pham where ma_nsx = :nsxID';
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindValue(':nsxID', $nsxID);
+        $stmt->execute();
+        while ($row = $stmt->fetch()) {
+            $products[] = new self(
+                $row['ma_sp'],
+                $row['tensp'],
+                $row['giasp'],
+                $row['soluongton'] ?? 0,
+                $row['mota'] ?? '',
+                $row['ma_nsx'] ?? '',
+                $row['ma_loai'] ?? ''
+            );
+        }
+        return $products ?? [];
+    }
+
+    public static function getByLoai($pdo, $loaiID){
+        $sql = 'select ma_sp, tensp, ma_nsx, ma_loai, giasp, soluongton, mota from san_pham where ma_loai = :loaiID';
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindValue(':loaiID', $loaiID);
+        $stmt->execute();
+        while ($row = $stmt->fetch()) {
+            $products[] = new self(
+                $row['ma_sp'],
+                $row['tensp'],
+                $row['giasp'],
+                $row['soluongton'] ?? 0,
+                $row['mota'] ?? '',
+                $row['ma_nsx'] ?? '',
+                $row['ma_loai'] ?? ''
+            );
+        }
+        return $products ?? [];
+    }
+
+    public static function search($pdo, $keyword){
+        $sql = 'select ma_sp, tensp, ma_nsx, ma_loai, giasp, soluongton, mota from san_pham where tensp like :keyword';
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindValue(':keyword', "%$keyword%");
+        $stmt->execute();
+         while ($row = $stmt->fetch()) {
+            $products[] = new self(
+                $row['ma_sp'],
+                $row['tensp'],
+                $row['giasp'],
+                $row['soluongton'] ?? 0,
+                $row['mota'] ?? '',
+                $row['ma_nsx'] ?? '',
+                $row['ma_loai'] ?? ''
+            );
+        }
+        return $products ?? [];
+    }
+
     public static function getAll($pdo)
     {
         $products = [];
@@ -94,27 +151,30 @@ class Product
         }
     }
 
-    public static function getPage($pdo, $limit, $offset)
+    public static function getPage($pdo, $limit, $offset, $products = [])
     {
-        $products = [];
-        try {
-            $query = "SELECT ma_sp, tensp, ma_nsx, ma_loai, giasp, soluongton, mota FROM san_pham LIMIT :limit OFFSET :offset";
-            $stmt = $pdo->prepare($query);
-            $stmt->bindValue(':limit', (int)$limit, \PDO::PARAM_INT);
-            $stmt->bindValue(':offset', (int)$offset, \PDO::PARAM_INT);
-            $stmt->execute();
-            while ($row = $stmt->fetch()) {
-                $products[] = new self(
-                    $row['ma_sp'],
-                    $row['tensp'],
-                    $row['giasp'],
-                    $row['soluongton'] ?? 0,
-                    $row['mota'] ?? '',
-                    $row['ma_nsx'] ?? '',
-                    $row['ma_loai'] ?? ''
-                );
-            }
-        } catch (\Exception) {}
+        if(is_array($products)){
+            $products = array_slice($products, $offset, $limit);
+        }else{
+            try {
+                $query = "SELECT ma_sp, tensp, ma_nsx, ma_loai, giasp, soluongton, mota FROM san_pham LIMIT :limit OFFSET :offset";
+                $stmt = $pdo->prepare($query);
+                $stmt->bindValue(':limit', (int)$limit, \PDO::PARAM_INT);
+                $stmt->bindValue(':offset', (int)$offset, \PDO::PARAM_INT);
+                $stmt->execute();
+                while ($row = $stmt->fetch()) {
+                    $products[] = new self(
+                        $row['ma_sp'],
+                        $row['tensp'],
+                        $row['giasp'],
+                        $row['soluongton'] ?? 0,
+                        $row['mota'] ?? '',
+                        $row['ma_nsx'] ?? '',
+                        $row['ma_loai'] ?? ''
+                    );
+                }
+            } catch (\Exception) {}
+        }
         return count($products) > 0 ? $products : [];
     }
 

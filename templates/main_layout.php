@@ -64,7 +64,7 @@ $baseUrl = $GLOBALS['baseUrl'] ?? '';
                     <form action="<?=$baseUrl?>/DonDatHang/GioHang" method="get" class="d-inline">
                         <button class="cart-btn text-dark p-2" type="submit">
                             <i class="bi bi-cart3 fs-4"></i>
-                            <span class="badge rounded-pill bg-danger cart-badge">0</span>
+                            <span class="badge rounded-pill bg-danger cart-badge"><?php echo $_SESSION['SoLuongGioHang'] ?? 0; ?></span>
                         </button>
                     </form>
 
@@ -78,10 +78,12 @@ $baseUrl = $GLOBALS['baseUrl'] ?? '';
                                 <i class="bi bi-person-circle me-1"></i> <?= htmlspecialchars($_SESSION['user']['tennd'] ?? $_SESSION['user']['email']) ?>
                             </button>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenuBtn">
-                                <li><a class="dropdown-item" href="<?= $baseUrl ?>/User/ThongTin?id=<?= $_SESSION['user']['ma_nd'] ?>">Xem thông tin</a></li>
-                                <li><a class="dropdown-item" href="<?= $baseUrl ?>/User/LichSuDatHang?id=<?= $_SESSION['user']['ma_nd'] ?>">Lịch sử đặt hàng</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="<?= $baseUrl ?>/User/Logout">Đăng xuất</a></li>
+                                <li><a class="dropdown-item" href="<?= $baseUrl ?>/User/ThongTin?id=<?= $_SESSION['user']['ma_nd'] ?>">Hồ sơ</a></li>
+                                <li><a class="dropdown-item" href="<?= $baseUrl ?>/User/Edit?id=<?= $_SESSION['user']['ma_nd'] ?>">Chỉnh sửa</a></li>
+                                <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#changePasswordModal">Đổi mật khẩu</a></li>
+                                    <li><a class="dropdown-item" href="<?= $baseUrl ?>/User/LichSuDatHang?id=<?= $_SESSION['user']['ma_nd'] ?>">Lịch sử đặt hàng</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="<?= $baseUrl ?>/User/Logout">Đăng xuất</a></li>
                             </ul>
                         </div>
                     <?php endif; ?>
@@ -154,6 +156,38 @@ $baseUrl = $GLOBALS['baseUrl'] ?? '';
     </div>
 </div>
 
+<!-- Change Password Modal -->
+<div class="modal fade" id="changePasswordModal" tabindex="-1" aria-labelledby="changePasswordLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="changePasswordLabel">Đổi mật khẩu</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="<?= $baseUrl ?>/User/ChangePassword" method="post">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Mật khẩu cũ</label>
+                        <input type="password" name="old_password" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Mật khẩu mới</label>
+                        <input type="password" name="new_password" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Xác nhận mật khẩu</label>
+                        <input type="password" name="confirm_password" class="form-control" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                    <button type="submit" class="btn btn-primary">Đổi mật khẩu</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <div class="flex-grow-1 bg-light">
     <main role="main" class="container py-4">
         <?php if (isset($_SESSION['MessageSuccess_GioHang'])): ?>
@@ -168,6 +202,20 @@ $baseUrl = $GLOBALS['baseUrl'] ?? '';
                 <i class="bi bi-exclamation-triangle-fill me-2"></i> <?= htmlspecialchars($_SESSION['MessageError_GioHang']) ?>
             </div>
             <?php unset($_SESSION['MessageError_GioHang']); ?>
+        <?php endif; ?>
+
+        <?php if (isset($_SESSION['MessageSuccess_User'])): ?>
+            <div class="alert alert-success text-center fw-bold shadow-sm fade show mb-4">
+                <i class="bi bi-check-circle-fill me-2"></i> <?= htmlspecialchars($_SESSION['MessageSuccess_User']) ?>
+            </div>
+            <?php unset($_SESSION['MessageSuccess_User']); ?>
+        <?php endif; ?>
+
+        <?php if (isset($_SESSION['MessageError_User'])): ?>
+            <div class="alert alert-danger text-center fw-bold shadow-sm fade show mb-4">
+                <i class="bi bi-exclamation-triangle-fill me-2"></i> <?= htmlspecialchars($_SESSION['MessageError_User']) ?>
+            </div>
+            <?php unset($_SESSION['MessageError_User']); ?>
         <?php endif; ?>
 
         <?php if (isset($content)) echo $content; ?>

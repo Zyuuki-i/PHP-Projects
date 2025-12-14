@@ -4,7 +4,7 @@ $baseUrl = $GLOBALS['baseUrl'] ?? '';
 ?>
 
 <div class="container mt-4">
-    <h3 class="fw-bold mb-4">Giỏ hàng của bạn</h3>
+    <h3 class="fw-bold mb-4 text-uppercase"><i class="bi bi-cart3"></i> Giỏ hàng của bạn</h3>
 
     <?php if (empty($items)): ?>
         <div class="text-center py-5 bg-light rounded-3">
@@ -12,6 +12,7 @@ $baseUrl = $GLOBALS['baseUrl'] ?? '';
             <p class="text-muted mt-3">Giỏ hàng đang trống.</p>
             <a href="<?= $baseUrl ?>/SanPham" class="btn btn-outline-dark">Xem sản phẩm</a>
         </div>
+        <div style="height: 100px;"></div>
     <?php else: ?>
         <div class="row">
             <div class="col-lg-8">
@@ -24,6 +25,7 @@ $baseUrl = $GLOBALS['baseUrl'] ?? '';
                                 <th>Đơn giá</th>
                                 <th>Số lượng</th>
                                 <th>Thành tiền</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -86,12 +88,22 @@ $baseUrl = $GLOBALS['baseUrl'] ?? '';
                     <div>
                         <p class="form-control text-secondary fs-6 mb-4" readonly>Nhấn "<strong>Thanh toán</strong>" đồng nghĩa với việc bạn đồng ý tuân theo <a class="text-decoration-none text-danger">Điều khoản & Chính sách</a> của đơn vị</p>
                     </div>
-                    <div class="d-flex gap-2">
-                        <form action="<?= $baseUrl ?>/DonDatHang/ClearCart" method="post" style="flex:1">
-                            <button class="btn btn-outline-secondary w-100 mt-3" type="submit">Xóa hết</button>
-                        </form>
-                        <button class="btn btn-outline-success w-100 mt-3" disabled>Thanh toán đơn hàng</button>
-                    </div>
+                    <form action="<?= $baseUrl ?>/DonDatHang/ThanhToanCart" method="post">
+                        <div class="w-100">
+                            <select name="payment_method" class="form-select form-select-sm">
+                                <option value="cod">COD - Thanh toán khi nhận hàng</option>
+                                <option value="vnpay">VNPay - Thanh toán trực tuyến</option>
+                            </select>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <div style="flex:1">
+                                <button class="btn btn-outline-danger w-100 mt-3" type="submit" formaction="<?= $baseUrl ?>/DonDatHang/ClearCart">Hủy</button>
+                            </div>
+                            <div style="flex:2">
+                                <button class="btn btn-success w-100 mt-3" type="submit">Thanh toán</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

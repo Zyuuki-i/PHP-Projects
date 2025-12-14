@@ -44,7 +44,7 @@ $baseUrl = $GLOBALS['baseUrl'] ?? '';
     </button>
 
 </div>
-<div class="text-center mb-5" style="width: 500px; margin: auto; padding-top: 50px;">
+<div class="text-center mb-5 py-4" style="width: 500px; margin: auto;">
     <h1 class="text-danger">Nhạc cụ cổ điển</h1>
     <p class="fst-italic">
         Những sản phẩm nhạc cụ cổ điển chất lượng cao được tuyển chọn

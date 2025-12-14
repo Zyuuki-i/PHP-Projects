@@ -61,4 +61,18 @@ class DanhGia
         } catch (\Exception) {}
         return count($items) > 0 ? $items : [];
     }
+
+    public static function getByUserAndProduct($pdo, $ma_nd, $ma_sp)
+    {
+        try {
+            $query = "SELECT ma_nd, ma_sp, noidung, sosao FROM danh_gia WHERE ma_nd = :ma_nd AND ma_sp = :ma_sp LIMIT 1";
+            $stmt = $pdo->prepare($query);
+            $stmt->execute(['ma_nd' => $ma_nd, 'ma_sp' => $ma_sp]);
+            if ($row = $stmt->fetch()) {
+                return new self($row['ma_nd'], $row['ma_sp'], $row['noidung'] ?? '', $row['sosao'] ?? null);
+            }
+        } catch (\Exception) {}
+        return null;
+    }
+
 }
