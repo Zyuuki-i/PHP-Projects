@@ -135,12 +135,12 @@ $router->add('POST', "$baseUrl/DonDatHang/MuaNgay", function() {
 
 $router->add('POST', "$baseUrl/DonDatHang/ThanhToan", function() {
     $c = new App\Controller\DonDatHangController();
-    return $c->thanhToan();
+    return $c->ThanhToan();
 });
 
-$router->add('POST', "$baseUrl/DonDatHang/ThanhToanCart", function() {
+$router->add('POST', "$baseUrl/DonDatHang/HuyDon", function() {
     $c = new App\Controller\DonDatHangController();
-    return $c->ThanhToanCart();
+    return $c->HuyDon();
 });
 
 $router->add('GET', "$baseUrl/DonDatHang/GioHang", function() {

@@ -94,7 +94,7 @@ $baseUrl = $GLOBALS['baseUrl'] ?? '';
                     <div>
                         <p class="form-control text-secondary fs-6 mb-4" readonly>Nhấn "<strong>Thanh toán</strong>" đồng nghĩa với việc bạn đồng ý tuân theo <a class="text-decoration-none text-danger">Điều khoản & Chính sách</a> của đơn vị</p>
                     </div>
-                    <form action="<?= $baseUrl ?>/DonDatHang/ThanhToanCart" method="post">
+                    <form action="<?= $baseUrl ?>/DonDatHang/ThanhToan" method="post">
                         <div class="w-100">
                             <select name="payment_method" class="form-select form-select-sm">
                                 <option value="cod">COD - Thanh toán khi nhận hàng</option>

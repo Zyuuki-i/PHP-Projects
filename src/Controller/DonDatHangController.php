@@ -253,7 +253,7 @@ class DonDatHangController
         exit;
     }
 
-    public function ThanhToanCart()
+    public function ThanhToan()
     {
         if (session_status() === PHP_SESSION_NONE) session_start();
         $pdo = require __DIR__ . '/../../config/config.php';
@@ -357,47 +357,65 @@ class DonDatHangController
         }
     }
 
-    public function thanhToan()
+    public function HuyDon()
     {
         if (session_status() === PHP_SESSION_NONE) session_start();
-        $pdo = require __DIR__ . '/../../config/config.php';
-        $user = $_SESSION['user'] ?? null;
+        global $pdo;
         $baseUrl = $GLOBALS['baseUrl'] ?? '';
-        if (!$user) {
-            header('Location: ' . $baseUrl . '/');
-            exit;
-        }
-
         $ma_ddh = $_POST['ma_ddh'] ?? null;
-        $method = $_POST['payment_method'] ?? 'cod';
+        $user = $_SESSION['user'] ?? null;
+
         if (!$ma_ddh) {
             header('Location: ' . $baseUrl . '/');
             exit;
         }
 
-        // Load order and verify ownership
         $order = DonDatHang::getById($pdo, $ma_ddh);
         if (!$order) {
             $_SESSION['MessageError_User'] = 'Đơn hàng không tồn tại.';
-            header('Location: ' . $baseUrl . '/');
+            $redirectBase = rtrim($baseUrl, '/');
+            $redirect = ($redirectBase === '') ? '/' : $redirectBase . '/';
+            header('Location: ' . $redirect);
             exit;
         }
-        if ($order->ma_nd != $user['ma_nd']) {
+
+        if (!$user || $order->ma_nd != $user['ma_nd']) {
             $_SESSION['MessageError_User'] = 'Bạn không có quyền thao tác trên đơn này.';
-            header('Location: ' . $baseUrl . '/');
+            $redirectBase = rtrim($baseUrl, '/');
+            $redirect = ($redirectBase === '') ? '/' : $redirectBase . '/';
+            header('Location: ' . $redirect);
             exit;
         }
 
-        // Assign staff 01 and set payment flag
-        $ma_nv = 1; // temporary
-        $tt_thanhtoan = ($method === 'vnpay') ? 'Đã thanh toán' : 'Chưa thanh toán';
-        $trangthai = ($method === 'vnpay') ? 'Đã xác nhận' : $order->trangthai;
+        if ($order->trangthai === 'Đã hủy' || $order->trangthai === 'Hoàn thành') {
+            $_SESSION['MessageError_User'] = 'Đơn hàng không thể hủy.';
+            $redirectBase = rtrim($baseUrl, '/');
+            $redirect = ($redirectBase === '') ? '/DonDatHang/ChiTiet?id=' . $ma_ddh : $redirectBase . '/DonDatHang/ChiTiet?id=' . $ma_ddh;
+            header('Location: ' . $redirect);
+            exit;
+        }
 
-        $ok = DonDatHang::updatePayment($pdo, $ma_ddh, $ma_nv, $tt_thanhtoan, $trangthai);
-        if ($ok) {
-            $_SESSION['MessageSuccess_User'] = 'Cập nhật trạng thái thanh toán thành công.';
-        } else {
-            $_SESSION['MessageError_User'] = 'Không thể cập nhật trạng thái thanh toán.';
+        try {
+            $pdo->beginTransaction();
+
+            $upd = $pdo->prepare('UPDATE don_dat_hang SET trangthai = :trangthai WHERE ma_ddh = :ma_ddh');
+            $upd->execute(['trangthai' => 'Đã hủy', 'ma_ddh' => $ma_ddh]);
+
+            $sel = $pdo->prepare('SELECT ma_sp, soluong FROM chi_tiet_don_dat_hang WHERE ma_ddh = :ma_ddh');
+            $sel->execute(['ma_ddh' => $ma_ddh]);
+            $upProd = $pdo->prepare('UPDATE san_pham SET soluongton = soluongton + :qty WHERE ma_sp = :ma_sp');
+            while ($row = $sel->fetch()) {
+                $qty = (int)($row['soluong'] ?? 0);
+                if ($qty > 0) {
+                    $upProd->execute(['qty' => $qty, 'ma_sp' => $row['ma_sp']]);
+                }
+            }
+
+            $pdo->commit();
+            $_SESSION['MessageSuccess_User'] = 'Hủy đơn hàng thành công.';
+        } catch (\Exception $e) {
+            try { $pdo->rollBack(); } catch (\Exception $_) {}
+            $_SESSION['MessageError_User'] = 'Không thể hủy đơn hàng.';
         }
 
         $redirectBase = rtrim($baseUrl, '/');

@@ -15,9 +15,9 @@
 		<div class="card mb-3">
 			<div class="card-body">
 				<h5 class="card-title">Thông tin đơn hàng</h5>
-				<p class="mb-1"><strong>Mã đơn:</strong> <?= htmlspecialchars($donhang->ma_ddh) ?></p>
-				<p class="mb-1"><strong>Ngày đặt:</strong> <?= htmlspecialchars($donhang->ngaydat) ?></p>
-				<p class="mb-1"><strong>Trạng thái:</strong> <?= htmlspecialchars($donhang->trangthai ?: $donhang->tt_thanhtoan) ?></p>
+				<p class="mb-2"><strong>Mã đơn:</strong> <?= htmlspecialchars($donhang->ma_ddh) ?></p>
+				<p class="mb-2"><strong>Ngày đặt:</strong> <?= htmlspecialchars($donhang->ngaydat) ?></p>
+				<p class="mb-2"><strong>Trạng thái:</strong> <?= htmlspecialchars($donhang->trangthai ?: $donhang->tt_thanhtoan) ?></p>
 				<p class="mb-1"><strong>Địa chỉ giao hàng:</strong> <?= htmlspecialchars($donhang->diachi ?: '-') ?></p>
 			</div>
 		</div>
@@ -28,6 +28,15 @@
 			<div class="card-body text-end">
 				<h5 class="card-title">Tổng cộng</h5>
 				<div class="display-6 fw-bold text-danger"><?= number_format($total ?? 0, 0, ',', '.') ?> đ</div>
+				<div class="text-muted">(Đã bao gồm VAT nếu có)</div>
+				<div>
+					<form method="post" action="<?= $baseUrl ?>/DonDatHang/HuyDon">
+						<input type="hidden" name="ma_ddh" value="<?= htmlspecialchars($donhang->ma_ddh) ?>">
+						<?php if ($donhang->trangthai !== 'Hoàn thành' && $donhang->trangthai !== 'Đã hủy'): ?>
+							<button type="submit" class="btn btn-danger mt-3" onclick="return confirm('Bạn có chắc chắn muốn hủy đơn hàng này?');">Hủy đơn</button>
+						<?php endif; ?>
+					</form>
+				</div>
 			</div>
 		</div>
 	</div>
