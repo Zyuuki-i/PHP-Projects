@@ -1,0 +1,19 @@
+.bg-admin {
+    background-color: #6ebfb4;
+}
+.nav-link{
+    border-radius: 20px;
+}
+.nav-link:hover {
+    background-color: #5aa9a4;
+    color: #000 !important;
+}
+body{
+    font-family:Poppins,Arial,Helvetica,sans-serif;
+    margin:0;
+    padding:0;
+    background-color:#90abaf
+} 
+.container-fluid{
+    padding:20px
+}

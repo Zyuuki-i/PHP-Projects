@@ -31,7 +31,7 @@
         <?php endif; ?>
     </ol>
 </nav>
-<div class="row g-4">
+<div class="row g-4 ps-3">
     <?php if (isset($thongbaoloi) && $thongbaoloi != null)
     {?>
         <div class="alert alert-danger text-center fw-bold">

@@ -6,7 +6,7 @@ $baseUrl = $GLOBALS['baseUrl'] ?? '';
 $pageTitle = "Chi tiết sản phẩm";
 ?>
 
-<div class="container mt-4">
+<div class="container mt-3">
     <nav aria-label="breadcrumb" class="mb-4">
         <ol class="breadcrumb breadcrumb-custom">
             <li class="breadcrumb-item">

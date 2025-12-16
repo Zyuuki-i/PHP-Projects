@@ -207,7 +207,7 @@ CREATE TABLE `nhan_vien` (
 INSERT INTO `nhan_vien` (`ma_nv`, `tennv`, `matkhau`, `phai`, `sdt`, `email`, `diachi`, `hinh`, `trangthai`, `ma_vt`) VALUES
 ('NV_01', 'Trần Văn Nam', '123456', 1, '0912000111', 'staff1@zyuuki.vn', 'Hà Nội', NULL, 1, 'Staff'),
 ('NV_02', 'Phạm Thị Linh', '123456', 0, '0912000222', 'staff2@zyuuki.vn', 'TP. Hồ Chí Minh', NULL, 1, 'Staff'),
-('QL_01', 'Võ Chung Khánh Đăng', '123456', 1, '0912345678', 'admin@zyuuki.vn', 'Cần Thơ', NULL, 1, 'Admin');
+('QL_01', 'Lê Văn Đạt', '123456', 1, '0869347040', 'admin@zyuuki.vn', 'Lâm Đồng', NULL, 1, 'Admin');
 
 -- --------------------------------------------------------
 
