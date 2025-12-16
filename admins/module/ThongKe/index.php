@@ -4,10 +4,7 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-if (
-    !isset($_SESSION['admin']) ||
-    ($_SESSION['admin']['ma_vt'] ?? '') !== 'Admin'
-) {
+if (!isset($_SESSION['admin'])) {
     header('Location: ../../index.php');
     exit();
 }

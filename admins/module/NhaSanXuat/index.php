@@ -3,14 +3,11 @@
         session_start();
     }
 
-    if (
-        !isset($_SESSION['admin']) ||
-        ($_SESSION['admin']['ma_vt'] ?? '') !== 'Admin'
-    ) {
+    if (!isset($_SESSION['admin'])) {
         header('Location: ../../index.php');
         exit();
-        }
-        require_once __DIR__ . '/../../../vendor/autoload.php';  
+    }
+    require_once __DIR__ . '/../../../vendor/autoload.php';  
     use App\Model\NhaSanXuat;
     $pdo = require_once __DIR__ . '/../../../config/config.php';
     $nsx = NhaSanXuat::getAll($pdo);
