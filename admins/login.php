@@ -20,12 +20,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         try {
             $pdo = require __DIR__ . '/../config/config.php';
-            $sql = "SELECT ma_nv, tennv, matkhau, email, ma_vt FROM nhan_vien WHERE tennv = :u OR email = :u LIMIT 1";
+            $sql = "SELECT ma_nv, tennv, matkhau, email, ma_vt, trangthai FROM nhan_vien WHERE tennv = :u OR email = :u LIMIT 1";
             $stmt = $pdo->prepare($sql);
             $stmt->execute([':u' => $username]);
             $user = $stmt->fetch(
                 \PDO::FETCH_ASSOC
             );
+            var_dump($user);
             if ($user) {
                 $hash = $user['matkhau'];
                 $ok = false;
@@ -36,17 +37,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
 
                 if ($ok) {
-                    $_SESSION['admin'] = [
+                    if(intval($user['trangthai'] ?? 0) === 0) {
+                        $error = 'Tài khoản của bạn đã bị khóa.';
+                    } else {
+                        $_SESSION['admin'] = [
                         'ma_nv' => $user['ma_nv'],
                         'tennv' => $user['tennv'],
                         'email' => $user['email'] ?? '',
-                        'ma_vt' => $user['ma_vt'] ?? ''
-                    ];
-                    header('Location: index.php');
-                    exit();
+                        'ma_vt' => $user['ma_vt'] ?? '',
+                        'trangthai' => $user['trangthai'] ?? 1,
+                        ];
+                        header('Location: index.php');
+                        exit();
+                    }
                 }
+            }else{
+                $error = 'Tên đăng nhập hoặc mật khẩu không đúng.';
             }
-            $error = 'Tên đăng nhập hoặc mật khẩu không đúng.';
         } catch (\Throwable $e) {
             $error = 'Lỗi hệ thống. Vui lòng thử lại.';
         }

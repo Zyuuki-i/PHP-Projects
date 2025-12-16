@@ -17,3 +17,13 @@ body{
 .container-fluid{
     padding:20px
 }
+.ul-items{
+    list-style-type: none;
+    padding-left: 20px;
+}
+.ul-items li a{
+    color: #fff;
+    text-decoration: none;
+    display: block;
+    padding: 5px 0;
+}

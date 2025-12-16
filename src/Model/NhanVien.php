@@ -13,7 +13,9 @@ class NhanVien
     public $hinh;
     public $ma_vt;
 
-    public function __construct($ma_nv, $tennv, $matkhau, $email, $cccd = '', $sdt = '', $diachi = '', $hinh = '', $ma_vt = '')
+    public $trangthai;
+
+    public function __construct($ma_nv, $tennv, $matkhau, $email, $cccd = '', $sdt = '', $diachi = '', $hinh = '', $ma_vt = '', $trangthai = 0)
     {
         $this->ma_nv = $ma_nv;
         $this->tennv = $tennv;
@@ -24,6 +26,7 @@ class NhanVien
         $this->diachi = $diachi;
         $this->hinh = $hinh;
         $this->ma_vt = $ma_vt;
+        $this->trangthai = $trangthai;
     }
 
     public function __destruct()
@@ -50,7 +53,7 @@ class NhanVien
     {
         $items = [];
         try {
-            $query = "SELECT ma_nv, tennv, matkhau, sdt, email, cccd, diachi, hinh, ma_vt FROM nhan_vien";
+            $query = "SELECT ma_nv, tennv, matkhau, sdt, email, diachi, hinh, ma_vt, trangthai FROM nhan_vien";
             $stmt = $pdo->query($query);
             while ($row = $stmt->fetch()) {
                 $items[] = new self(
@@ -62,7 +65,8 @@ class NhanVien
                     $row['sdt'] ?? '',
                     $row['diachi'] ?? '',
                     $row['hinh'] ?? '',
-                    $row['ma_vt'] ?? ''
+                    $row['ma_vt'] ?? '',
+                    $row['trangthai'] ?? 0
                 );
             }
         } catch (\Exception) {}
