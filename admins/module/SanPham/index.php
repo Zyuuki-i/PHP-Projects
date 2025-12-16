@@ -33,7 +33,7 @@
         <h2 class="text-center my-3 fw-bold text-uppercase">QUẢN LÝ SẢN PHẨM</h2>
         
         <div class="d-flex justify-content-between align-items-center mb-3">
-            <a href="index.php?mod=sanpham&act=create" class="btn btn-success">
+            <a href="index.php?mod=SanPham&act=create" class="btn btn-success">
                 <i class="fas fa-plus"></i> Thêm sản phẩm
             </a>
             <span class="text-muted">Tổng: <strong><?= $tongsp ?></strong> sản phẩm</span>
@@ -58,8 +58,8 @@
                             <td><?= number_format($item->giasp, 0, ',', '.') ?> VNĐ</td>
                             <td><?= htmlspecialchars($item->soluongton) ?></td>
                             <td class="text-center">
-                                <a href="index.php?mod=sanpham&act=edit&ma_sp=<?= urlencode($item->ma_sp) ?>" class="btn btn-sm btn-primary">Sửa</a>
-                                <a href="index.php?mod=sanpham&act=delete&ma_sp=<?= urlencode($item->ma_sp) ?>" class="btn btn-sm btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này không?');">Xóa</a>
+                                <a href="index.php?mod=SanPham&act=edit&ma_sp=<?= urlencode($item->ma_sp) ?>" class="btn btn-sm btn-primary">Sửa</a>
+                                <a href="index.php?mod=SanPham&act=delete&ma_sp=<?= urlencode($item->ma_sp) ?>" class="btn btn-sm btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này không?');">Xóa</a>
                             </td>    
                         </tr>
                     <?php endforeach; ?>
@@ -74,7 +74,7 @@
         <?php if ($tongtrang > 1): ?>
         <nav aria-label="Page navigation" class="my-4">
             <ul class="pagination justify-content-center pagination-sm"> <li class="page-item <?= ($trang <= 1) ? 'disabled' : '' ?>">
-                    <a class="page-link" href="index.php?mod=sanpham&trang=<?= $trang - 1 ?>" aria-label="Previous">
+                    <a class="page-link" href="index.php?mod=SanPham&trang=<?= $trang - 1 ?>" aria-label="Previous">
                         <span aria-hidden="true"><i class="fas fa-chevron-left"></i> &laquo;</span>
                     </a>
                 </li>
@@ -82,7 +82,7 @@
                 <?php for ($i = 1; $i <= $tongtrang; $i++): ?>
                     <?php if ($i == 1 || $i == $tongtrang || ($i >= $trang - 2 && $i <= $trang + 2)): ?>
                         <li class="page-item <?= ($i == $trang) ? 'active' : '' ?>">
-                            <a class="page-link" href="index.php?mod=sanpham&trang=<?= $i ?>"><?= $i ?></a>
+                            <a class="page-link" href="index.php?mod=SanPham&trang=<?= $i ?>"><?= $i ?></a>
                         </li>
                     <?php elseif ($i == $trang - 3 || $i == $trang + 3): ?>
                         <li class="page-item disabled"><span class="page-link">...</span></li>
@@ -90,7 +90,7 @@
                 <?php endfor; ?>
 
                 <li class="page-item <?= ($trang >= $tongtrang) ? 'disabled' : '' ?>">
-                    <a class="page-link" href="index.php?mod=sanpham&trang=<?= $trang + 1 ?>" aria-label="Next">
+                    <a class="page-link" href="index.php?mod=SanPham&trang=<?= $trang + 1 ?>" aria-label="Next">
                         <span aria-hidden="true">&raquo; <i class="fas fa-chevron-right"></i></span>
                     </a>
                 </li>

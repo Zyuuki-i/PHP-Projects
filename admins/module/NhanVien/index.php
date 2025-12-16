@@ -18,7 +18,7 @@
 <div class="row">
     <div class="col-md-12">
         <h2 class="text-center my-3 fw-bold text-uppercase">QUẢN LÝ NHÂN VIÊN</h2>
-        <a href="index.php?mod=nhanvien&act=create" class="btn btn-success mb-3">Thêm nhân viên</a>
+        <a href="index.php?mod=NhanVien&act=create" class="btn btn-success mb-3">Thêm nhân viên</a>
         <table class="table table-bordered table-striped">
             <thead>
                 <tr>
@@ -41,11 +41,11 @@
                         <td><?= htmlspecialchars($item->diachi) ?></td>
                         <td><?= htmlspecialchars($item->ma_vt) ?></td>
                         <td>
-                            <a href="index.php?mod=nhanvien&act=edit&ma_nv=<?= urlencode($item->ma_nv) ?>" class="btn btn-sm btn-primary">Sửa</a>
+                            <a href="index.php?mod=NhanVien&act=edit&ma_nv=<?= urlencode($item->ma_nv) ?>" class="btn btn-sm btn-primary">Sửa</a>
                             <?php if($item->trangthai == 1): ?>
-                            <a href="index.php?mod=nhanvien&act=deactivate&ma_nv=<?= urlencode($item->ma_nv) ?>" class="btn btn-sm btn-warning" onclick="return confirm('Bạn có chắc chắn muốn vô hiệu hóa nhân viên này không?');">Vô hiệu</a>
+                            <a href="index.php?mod=NhanVien&act=deactivate&ma_nv=<?= urlencode($item->ma_nv) ?>" class="btn btn-sm btn-warning" onclick="return confirm('Bạn có chắc chắn muốn vô hiệu hóa nhân viên này không?');">Vô hiệu</a>
                             <?php else: ?>
-                            <a href="index.php?mod=nhanvien&act=activate&ma_nv=<?= urlencode($item->ma_nv) ?>" class="btn btn-sm btn-success" onclick="return confirm('Bạn có chắc chắn muốn kích hoạt nhân viên này không?');">Kích hoạt</a>
+                            <a href="index.php?mod=NhanVien&act=activate&ma_nv=<?= urlencode($item->ma_nv) ?>" class="btn btn-sm btn-success" onclick="return confirm('Bạn có chắc chắn muốn kích hoạt nhân viên này không?');">Kích hoạt</a>
                             <?php endif; ?>
                         </td>
                     </tr>

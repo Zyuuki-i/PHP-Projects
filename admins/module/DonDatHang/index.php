@@ -61,7 +61,7 @@ usort($list, function($a, $b){
 		<h2 class="text-center my-3 fw-bold text-uppercase">Quản lý Đơn đặt hàng</h2>
 
 		<form action="index.php" method="get" class="row g-2 align-items-end mb-3">
-			<input type="hidden" name="mod" value="dondathang">
+			<input type="hidden" name="mod" value="DonDatHang">
 			<div class="col-auto">
 				<label for="type" class="form-label">Loại</label>
 				<select name="type" id="type" class="form-select">
@@ -119,9 +119,9 @@ usort($list, function($a, $b){
 							<td><?= number_format($dh->tongtien, 0, ',', '.') ?></td>
 							<td class="text-center align-content-center">
                                 <?php if($dh->trangthai === 'Đang xử lý'): ?>
-                                    <a href="index.php?mod=dondathang&action=xuly&ma_ddh=<?= $dh->ma_ddh ?>" class="btn btn-sm btn-warning w-100">Xác nhận</a>
+                                    <a href="index.php?mod=DonDatHang&action=xuly&ma_ddh=<?= $dh->ma_ddh ?>" class="btn btn-sm btn-warning w-100">Xác nhận</a>
                                 <?php elseif($dh->trangthai === 'Đã xử lý'): ?>
-                                    <a href="index.php?mod=dondathang&action=hoanthanh&ma_ddh=<?= $dh->ma_ddh ?>" class="btn btn-sm btn-success w-100">Hoàn thành</a>
+                                    <a href="index.php?mod=DonDatHang&action=hoanthanh&ma_ddh=<?= $dh->ma_ddh ?>" class="btn btn-sm btn-success w-100">Hoàn thành</a>
                                 <?php endif; ?>
                             </td>
 						</tr>

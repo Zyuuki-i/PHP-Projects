@@ -38,11 +38,11 @@
                         <td><?= htmlspecialchars($item->sdt) ?></td>
                         <td><?= htmlspecialchars($item->diachi) ?></td>
                         <td>
-                            <a href="index.php?mod=khachhang&act=edit&ma_nd=<?= urlencode($item->ma_nd) ?>" class="btn btn-sm btn-primary">Sửa</a>
+                            <a href="index.php?mod=KhachHang&act=edit&ma_nd=<?= urlencode($item->ma_nd) ?>" class="btn btn-sm btn-primary">Sửa</a>
                             <?php if($item->trangthai == 1): ?>
-                            <a href="index.php?mod=khachhang&act=deactivate&ma_nd=<?= urlencode($item->ma_nd) ?>" class="btn btn-sm btn-warning" onclick="return confirm('Bạn có chắc chắn muốn vô hiệu hóa khách hàng này không?');">Vô hiệu</a>
+                            <a href="index.php?mod=KhachHang&act=deactivate&ma_nd=<?= urlencode($item->ma_nd) ?>" class="btn btn-sm btn-warning" onclick="return confirm('Bạn có chắc chắn muốn vô hiệu hóa khách hàng này không?');">Vô hiệu</a>
                             <?php else: ?>
-                            <a href="index.php?mod=khachhang&act=activate&ma_nd=<?= urlencode($item->ma_nd) ?>" class="btn btn-sm btn-success" onclick="return confirm('Bạn có chắc chắn muốn kích hoạt khách hàng này không?');">Kích hoạt</a>
+                            <a href="index.php?mod=KhachHang&act=activate&ma_nd=<?= urlencode($item->ma_nd) ?>" class="btn btn-sm btn-success" onclick="return confirm('Bạn có chắc chắn muốn kích hoạt khách hàng này không?');">Kích hoạt</a>
                             <?php endif; ?>
                         </td>    
                     </tr>

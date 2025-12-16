@@ -43,7 +43,7 @@ try {
         <h2 class="text-center my-3 fw-bold text-uppercase">Thống kê doanh thu</h2>
 
         <form action="index.php" method="get" class="mb-3 row g-2 align-items-center">
-            <input type="hidden" name="mod" value="thongke">
+            <input type="hidden" name="mod" value="ThongKe">
             <div class="col-auto">
                 <label for="year" class="form-label">Năm</label>
                 <select name="year" id="year" class="form-select">

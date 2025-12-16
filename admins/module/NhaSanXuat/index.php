@@ -18,7 +18,7 @@
 <div class="row">
     <div class="col-md-12">
         <h2 class="text-center my-3 fw-bold text-uppercase">QUẢN LÝ NHÀ SẢN XUẤT</h2>
-        <a href="index.php?mod=nhansanxuat&act=create" class="btn btn-success mb-3">Thêm nhà sản xuất</a>
+        <a href="index.php?mod=NhaSanXuat&act=create" class="btn btn-success mb-3">Thêm nhà sản xuất</a>
         <table class="table table-bordered table-striped">
             <thead>
                 <tr>
@@ -33,8 +33,8 @@
                         <td><?= htmlspecialchars($item->ma_nsx) ?></td>
                         <td><?= htmlspecialchars($item->tennsx) ?></td>
                         <td class="text-center">
-                            <a href="index.php?mod=nhansanxuat&act=edit&ma_nsx=<?= urlencode($item->ma_nsx) ?>" class="btn btn-sm btn-primary w-25">Sửa</a>
-                            <a href="index.php?mod=nhansanxuat&act=delete&ma_nsx=<?= urlencode($item->ma_nsx) ?>" class="btn btn-sm btn-danger w-25" onclick="return confirm('Bạn có chắc chắn muốn xóa nhà sản xuất này không?');">Xóa</a>
+                            <a href="index.php?mod=NhaSanXuat&act=edit&ma_nsx=<?= urlencode($item->ma_nsx) ?>" class="btn btn-sm btn-primary w-25">Sửa</a>
+                            <a href="index.php?mod=NhaSanXuat&act=delete&ma_nsx=<?= urlencode($item->ma_nsx) ?>" class="btn btn-sm btn-danger w-25" onclick="return confirm('Bạn có chắc chắn muốn xóa nhà sản xuất này không?');">Xóa</a>
                         </td>    
                     </tr>
                 <?php endforeach; ?>
