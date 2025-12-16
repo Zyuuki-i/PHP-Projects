@@ -22,16 +22,16 @@ class HomeController
             $products = array_slice($products, 0, 8);
         }
 
-        $content = $this->view('index.php', ['products' => $products, 'hinhList' => $hinhList, 'nsxList' => $nsxList, 'loaiList' => $loaiList]);
+        $content = view('index.php', ['products' => $products, 'hinhList' => $hinhList, 'nsxList' => $nsxList, 'loaiList' => $loaiList], 'Home');
 
-        return $this->render('main_layout.php', ['content' => $content]);
+        return render('main_layout.php', ['content' => $content]);
     }
 
     public function gioiThieu()
     {
-        $content = $this->view('gioithieu.php');
+        $content = view('gioithieu.php', [], 'Home');
 
-        return $this->render('main_layout.php', ['content' => $content]);
+        return render('main_layout.php', ['content' => $content]);
     }
 
     public function danhGia()
@@ -39,24 +39,8 @@ class HomeController
         $pdo = require __DIR__ . '/../../config/config.php';
         $nguoidungs = NguoiDung::getAll($pdo);
         $danhgias = DanhGia::getAll($pdo);
-        $content = $this->view('danhgia.php', ['danhgias' => $danhgias, 'nguoidungs' => $nguoidungs]);
+        $content = view('danhgia.php', ['danhgias' => $danhgias, 'nguoidungs' => $nguoidungs], 'Home');
 
-        return $this->render('main_layout.php', ['content' => $content]);
-    }
-
-    private function view($view, $data = [])
-    {
-        extract($data);
-        ob_start();
-        include __DIR__ . '/../View/Home/' . $view;
-        return ob_get_clean();
-    }
-
-    private function render($template, $data = [])
-    {
-        extract($data);
-        ob_start();
-        include __DIR__ . '/../../templates/' . $template;
-        return ob_get_clean();
+        return render('main_layout.php', ['content' => $content]);
     }
 }

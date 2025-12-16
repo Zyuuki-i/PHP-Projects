@@ -43,17 +43,17 @@ class SanPhamController
         $products = Product::getPage($pdo, $hienthi, $offset, $sp);
         $hinhList = Hinh::getAll($pdo);
 
-        $content = $this->view('sanpham.php', [
+        $content = view('sanpham.php', [
             'products' => $products,
             'hinhList' => $hinhList,
             'tranghientai' => $page,
             'tongtrang' => $tongtrang,
             'hienthi' => $hienthi,
-        ]);
+        ], 'SanPham');
 
-        $contentZ = $this->render('sanpham_layout.php', ['content' => $content]);
+        $contentZ = render('sanpham_layout.php', ['content' => $content]);
 
-        return $this->render('main_layout.php', ['content'=> $contentZ]);
+        return render('main_layout.php', ['content'=> $contentZ]);
     }
 
     public function chiTietSP($id)
@@ -61,8 +61,8 @@ class SanPhamController
         global $pdo;
         $sp = Product::getById($pdo, $id);
         if ($sp == null) {
-            $content = $this->render('sanpham_layout.php', ['content' => 'Sản phẩm không tồn tại.']);
-            return $this->render('main_layout.php', ['content' => $content]);
+            $content = render('sanpham_layout.php', ['content' => 'Sản phẩm không tồn tại.']);
+            return render('main_layout.php', ['content' => $content]);
         }
         $dsHinh = Hinh::getByProductId($pdo, $id);
         $dsdg = DanhGia::getByProductId($pdo, $id);
@@ -74,7 +74,7 @@ class SanPhamController
             $imgs = Hinh::getByProductId($pdo, $rp->ma_sp);
             $relatedHinh[$rp->ma_sp] = $imgs;
         }
-        $content = $this->view('chitiet.php', [
+        $content = view('chitiet.php', [
             'sp' => $sp,
             'dsHinh' => $dsHinh,
             'dsdg' => $dsdg,
@@ -82,24 +82,8 @@ class SanPhamController
             'relatedHinh' => $relatedHinh,
             'dsnx' => $dsnx,
             'dskh' => $dskh,
-        ]);
-        $contentZ = $this->render('sanpham_layout.php', ['content' => $content]);
-        return $this->render('main_layout.php', ['content'=> $contentZ]);
-    }
-
-    private function view($view, $data = [])
-    {
-        extract($data);
-        ob_start();
-        include __DIR__ . '/../View/SanPham/' . $view;
-        return ob_get_clean();
-    }
-
-    private function render($template, $data = [])
-    {
-        extract($data);
-        ob_start();
-        include __DIR__ . '/../../templates/' . $template;
-        return ob_get_clean();
+        ], 'SanPham');
+        $contentZ = render('sanpham_layout.php', ['content' => $content]);
+        return render('main_layout.php', ['content'=> $contentZ]);
     }
 }

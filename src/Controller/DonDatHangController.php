@@ -58,13 +58,13 @@ class DonDatHangController
             $items = [];
         }
 
-        $content = $this->view('chitiet.php', [
+        $content = view('chitiet.php', [
             'donhang' => $donhang,
             'items' => $items,
             'total' => $total,
-        ]);
+        ], 'DonDatHang');
 
-        return $this->render('main_layout.php', ['content' => $content]);
+        return render('main_layout.php', ['content' => $content]);
     }
 
     public function gioHang()
@@ -89,13 +89,13 @@ class DonDatHangController
             }
         }
 
-        $content = $this->view('giohang.php', [
+        $content = view('giohang.php', [
             'items' => $items,
             'totalQty' => $totalQty,
             'totalPrice' => $totalPrice,
-        ]);
+        ], 'DonDatHang');
 
-        return $this->render('main_layout.php', ['content' => $content]);
+        return render('main_layout.php', ['content' => $content]);
     }
 
     public function ThemVaoGio()
@@ -424,19 +424,5 @@ class DonDatHangController
         exit;
     }
 
-    private function view($view, $data = [])
-    {
-        extract($data);
-        ob_start();
-        include __DIR__ . '/../View/DonDatHang/' . $view;
-        return ob_get_clean();
-    }
 
-    private function render($template, $data = [])
-    {
-        extract($data);
-        ob_start();
-        include __DIR__ . '/../../templates/' . $template;
-        return ob_get_clean();
-    }
 }

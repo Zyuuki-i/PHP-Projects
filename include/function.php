@@ -27,3 +27,19 @@ function input($index, $value = '')
 function formatMoney($amount) {
     return number_format($amount, 0, ',', '.');
 }
+
+function view($view, $data = [], $name = 'Home')
+{
+	extract($data);
+	ob_start();
+	include __DIR__ . '/../src/View/'.$name.'/'. $view;
+	return ob_get_clean();
+}
+
+function render($template, $data = [])
+{
+	extract($data);
+	ob_start();
+	include __DIR__ . '/../templates/' . $template;
+	return ob_get_clean();
+}

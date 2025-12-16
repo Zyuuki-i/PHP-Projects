@@ -182,8 +182,8 @@ class UserController
             $dadanhgia = [];
         }
 
-        $content = $this->view('thongtin.php', ['nguoidung' => $nguoidung, 'canDanhGia' => $dgia, 'daDanhGia' => $dadanhgia]);
-        return $this->render('main_layout.php', ['content' => $content]);
+        $content = view('thongtin.php', ['nguoidung' => $nguoidung, 'canDanhGia' => $dgia, 'daDanhGia' => $dadanhgia], 'User');
+        return render('main_layout.php', ['content' => $content]);
     }
 
     public function edit()
@@ -202,8 +202,8 @@ class UserController
             exit;
         }
 
-        $content = $this->view('edit.php', ['nguoidung' => $nguoidung]);
-        return $this->render('main_layout.php', ['content' => $content]);
+        $content = view('edit.php', ['nguoidung' => $nguoidung], 'User');
+        return render('main_layout.php', ['content' => $content]);
     }
 
     public function update()
@@ -353,24 +353,8 @@ class UserController
 
         $donhangs = DonDatHang::getByNguoiDung($pdo, $user['ma_nd']);
         
-        $content = $this->view('lichsuDDH.php', ['donhangs' => $donhangs]);
-        return $this->render('main_layout.php', ['content' => $content]);
+        $content = view('lichsuDDH.php', ['donhangs' => $donhangs], 'User');
+        return render('main_layout.php', ['content' => $content]);
     }
 
-
-    private function view($view, $data = [])
-    {
-        extract($data);
-        ob_start();
-        include __DIR__ . '/../View/User/' . $view;
-        return ob_get_clean();
-    }
-
-    private function render($template, $data = [])
-    {
-        extract($data);
-        ob_start();
-        include __DIR__ . '/../../templates/' . $template;
-        return ob_get_clean();
-    }
 }
